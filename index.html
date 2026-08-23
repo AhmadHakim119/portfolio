@@ -1,253 +1,163 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="shortcut icon" type="image/png" href="./images/favicon.png" />
-
-  <!-- Your Site Title -->
-  <title>
-    Ahmad Hakim | Computer Science Student & AI/Software Developer
-  </title>
-
-  <!-- Your Description -->
-  <meta name="description" content="Computer Science student at Effat University specializing in Full-Stack Development, Machine Learning, and AI-powered systems." />
-
-  <!-- Keywords -->
-  <meta name="keywords" content="Ahmad Hakim, Effat University, Computer Science, AI, Machine Learning, Software Developer, Web Development, C++, PHP, RAG Systems, TMDb API" />
-
-  <link rel="stylesheet" href="index.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0d0c">
+  <meta name="description" content="Ahmad Hakim builds robust AI systems, machine-learning research, and thoughtful full-stack products.">
+  <meta name="keywords" content="Ahmad Hakim, AI developer, machine learning, full-stack developer, adversarial machine learning, RAG, Effat University">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ahmad Hakim | AI & Software Developer">
+  <meta property="og:description" content="Robust AI systems and full-stack products, built with rigor.">
+  <meta property="og:image" content="https://ahmadhakim119.github.io/portfolio/images/poisoning_degradation.png">
+  <meta property="og:url" content="https://ahmadhakim119.github.io/portfolio/">
+  <link rel="canonical" href="https://ahmadhakim119.github.io/portfolio/">
+  <script>if (location.protocol !== "file:") document.documentElement.classList.add("js");</script>
+  <link rel="icon" type="image/png" href="./images/favicon.png">
+  <link rel="preload" href="./fonts/HKGrotesk-Regular.woff" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="./fonts/Jost-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="./index.css?v=20260823h">
+  <title>Ahmad Hakim | AI & Software Developer</title>
 </head>
-
 <body>
-
-  <!-- ***** Header ***** -->
-
-  <header class="header" role="banner" id="top">
-    <div class="row">
-      <nav class="nav" role="navigation">
-        <ul class="nav__items">
-          <li class="nav__item"><a href="#work" class="nav__link">Projects</a></li>
-          <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
-          <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-
-    <div class="header__text-box row">
-      <div class="header__text">
-        <h1 class="heading-primary">
-          <span>Ahmad Hakim</span>
-        </h1>
-
-        <p>CS Student at Effat University | AI, ML & Full-Stack Developer</p>
-
-        <a href="#contact" class="btn btn--pink">Get in Touch</a>
-      </div>
-    </div>
-
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="wordmark" href="#top" aria-label="Ahmad Hakim, home">AH<span>.</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="#work">Work</a>
+      <a href="#profile">Profile</a>
+      <a class="nav-contact" href="mailto:ahmadramihakim1122@gmail.com">Contact</a>
+    </nav>
   </header>
 
-  <main role="main">
-
-    <!-- ***** Projects ***** -->
-
-    <section class="work" id="work">
-      <div class="row">
-        <h2>Highlighted Projects</h2>
-        <div class="work__boxes">
-
-          <!-- Project 1 -->
-          <div class="work__box">
-  <div class="work__text">
-    <h3>Medical Diagnosis Robustness (Adversarial ML)</h3>
-    <p>
-      An end-to-end research project investigating the impact of label-flipping poisoning attacks on 8 ML classifiers using 1.3M patient records. Achieved 99.74% F1 with Logistic Regression while identifying critical vulnerabilities in rare pathologies under 30% data corruption.
-    </p>
-    <ul class="work__list">
-      <li>Python</li>
-      <li>Scikit-learn</li>
-      <li>XGBoost</li>
-      <li>Adversarial Robustness</li>
-    </ul>
-
-    <div class="work__links">
-      <a href="https://github.com/AhmadHakim119/ML_Project_DDXPLUS" class="link__text" target="_blank">
-        View Project <span>&rarr;</span>
-      </a>
-      <a href="https://github.com/AhmadHakim119/ML_Project_DDXPLUS" target="_blank">
-        <img src="./images/github.svg" class="work__code" alt="GitHub" />
-      </a>
-    </div>
-  </div>
-
-  <div class="work__image-box">
-    <img src="./images/poisoning_degradation.png" class="work__image" alt="ML Robustness Analysis" />
-  </div>
-</div>
-          <div class="work__box">
-            <div class="work__text">
-              <h3>CineVault – Movie Review Platform</h3>
-              <p>
-                A full-stack movie and TV show review website built with PHP, MySQL, JS, and TMDb API featuring ratings, favorites, cast system, email verification, infinite scroll, search, and admin features.
-              </p>
-              <ul class="work__list">
-                <li>PHP</li>
-                <li>MySQL</li>
-                <li>JavaScript</li>
-                <li>TMDb API</li>
-              </ul>
-
-              <div class="work__links">
-                <a href="https://github.com/AhmadHakim119" class="link__text" target="_blank">
-                  View Project <span>&rarr;</span>
-                </a>
-                <a href="https://github.com/AhmadHakim119" target="_blank">
-                  <img src="./images/github.svg" class="work__code" alt="GitHub" />
-                </a>
-              </div>
-            </div>
-
-            <div class="work__image-box">
-              <img src=".\images\cinevault.png" class="work__image" alt="CineVault" />
-            </div>
-          </div>
-
-          <!-- Project 2 -->
-          <div class="work__box">
-            <div class="work__text">
-              <h3>Hospital Management System (C++)</h3>
-              <p>
-                A full C++ patient management system with emergency queue, OOP structure, file handling, and a GUI built using FLTK and Pybind11 integration.
-              </p>
-              <ul class="work__list">
-                <li>C++</li>
-                <li>OOP</li>
-                <li>FLTK GUI</li>
-                <li>Pybind11</li>
-              </ul>
-
-              <div class="work__links">
-                <a href="https://github.com/AhmadHakim119" class="link__text" target="_blank">
-                  View Project <span>&rarr;</span>
-                </a>
-                <a href="https://github.com/AhmadHakim119" target="_blank">
-                  <img src="./images/github.svg" class="work__code" alt="GitHub" />
-                </a>
-              </div>
-            </div>
-
-            <div class="work__image-box">
-              <img src=".\images\hospital.png" class="work__image" alt="Hospital System" />
-            </div>
-          </div>
-
-          <!-- Project 3 -->
-          <div class="work__box">
-            <div class="work__text">
-              <h3>Lawsuit RAG System (Llama + KSA Law)</h3>
-              <p>
-                A Retrieval-Augmented Generation system built using Llama and Saudi legal documents to answer legal questions, summarize cases, and retrieve relevant articles.
-              </p>
-              <ul class="work__list">
-                <li>Python</li>
-                <li>LLMs</li>
-                <li>RAG</li>
-                <li>Vector Search</li>
-              </ul>
-
-              <div class="work__links">
-                <a href="https://github.com/AhmadHakim119" class="link__text" target="_blank">
-                  View System <span>&rarr;</span>
-                </a>
-                <a href="https://github.com/AhmadHakim119" target="_blank">
-                  <img src="./images/github.svg" class="work__code" alt="GitHub" />
-                </a>
-              </div>
-            </div>
-
-            <div class="work__image-box">
-              <img src="./images/rag.png" class="work__image" alt="RAG System" />
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ***** About ***** -->
-
-    <section class="about" id="about">
-      <div class="row">
-        <h2>About Me</h2>
-        <div class="about__content">
-          <div class="about__text">
-
-           <p>
-            I’m Ahmad Hakim, a Computer Science student at Effat University specializing in building robust, scalable AI systems and full-stack web applications. I’ve developed complex systems including a legal RAG system using Llama models, a full movie review platform in PHP/JS, and a deep-dive research project on <b>Adversarial Machine Learning</b>. In my latest work, I analyzed model robustness against label-flipping data poisoning using the DDXPlus dataset of 1.3 million patient records, achieving a 99.74% weighted F1 score.
-          </p>
-
-          <p>
-            My academic work includes serving as a research assistant on Physics-Informed Neural Networks (PINNs) for LED lifetime prediction. I also bring strong mathematical foundations to my development work, with extensive experience tutoring Discrete Math, Calculus, Linear Algebra, and Statistics.
-          </p>
-
-            <a href=".\images\Ahmad_Hakim_Resume (1).pdf" class="btn">Download Resume</a>
-          </div>
-
-          <div class="about__photo-container">
-            <img class="about__photo" src="./images/logo.jpg" alt="Ahmad Hakim" />
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-content">
+        <p class="hero-kicker">AI systems · Full-stack products</p>
+        <h1 id="hero-title">I build AI systems that <em>hold up</em> under pressure.</h1>
+        <div class="hero-bottom">
+          <p>Computer Science student at Effat University, turning research questions into reliable software.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#work">Explore work</a>
+            <a class="text-link" href="https://github.com/AhmadHakim119" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
           </div>
         </div>
       </div>
+      <div class="hero-index" aria-hidden="true">
+        <span>Jeddah, KSA</span>
+        <span>Selected work 2025-2026</span>
+      </div>
     </section>
 
+    <section class="work-section" id="work" aria-labelledby="work-title">
+      <div class="section-intro reveal">
+        <p class="section-label">Selected work</p>
+        <h2 id="work-title">Engineering with evidence.</h2>
+        <p>Three projects across applied AI, adversarial ML, and product engineering.</p>
+      </div>
+
+      <article class="project project-misra reveal">
+        <div class="project-copy">
+          <div class="project-meta"><span>Assessment intelligence</span><span>2026</span></div>
+          <h3>MISRA-EDU</h3>
+          <p class="project-lede">An instructor-facing assessment workflow that keeps AI grading accountable to human judgment.</p>
+          <ul class="project-facts" aria-label="MISRA-EDU highlights">
+            <li><strong>Multimodal</strong><span>OCR, visual evidence, and Gemini grading</span></li>
+            <li><strong>Human-led</strong><span>Versioned rubrics, overrides, and review queues</span></li>
+            <li><strong>Evaluated</strong><span>AI-instructor agreement and run comparison</span></li>
+          </ul>
+          <a class="project-link" href="https://github.com/AhmadHakim119/misra_edu" target="_blank" rel="noreferrer">View repository <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="misra-visual" aria-label="MISRA-EDU project identity">
+          <div class="misra-orbit" aria-hidden="true"></div>
+          <img src="./images/misra-logo.png" alt="MISRA-EDU, Multimodal Intelligent Secure Assessment" loading="lazy">
+          <div class="workflow" aria-label="MISRA-EDU workflow"><span>Extract</span><span>Review</span><span>Grade</span><span>Evaluate</span></div>
+        </div>
+      </article>
+
+      <article class="project project-ml reveal">
+        <div class="ml-visual">
+          <img src="./images/poisoning_degradation.png" alt="Model performance degradation under data-poisoning attacks" loading="lazy">
+        </div>
+        <div class="project-copy">
+          <div class="project-meta"><span>Adversarial machine learning</span><span>2026</span></div>
+          <h3>Medical diagnosis under attack</h3>
+          <p class="project-lede">A 1.3-million-record study of how eight classifiers respond when training labels are deliberately corrupted.</p>
+          <div class="metrics" aria-label="Project metrics">
+            <div><strong>1.3M</strong><span>patient records</span></div>
+            <div><strong>8</strong><span>classifiers tested</span></div>
+            <div><strong>&lt;2 GB</strong><span>sparse memory footprint</span></div>
+          </div>
+          <p class="project-note">The headline result was not the high aggregate score. It was discovering that rare pathologies can disappear from the model's hypothesis space under poisoning.</p>
+          <a class="project-link" href="https://github.com/AhmadHakim119/ML_Project_DDXPLUS" target="_blank" rel="noreferrer">Read the study <span aria-hidden="true">↗</span></a>
+        </div>
+      </article>
+
+      <article class="project project-cine reveal">
+        <div class="project-copy">
+          <div class="project-meta"><span>Full-stack product</span><span>2026</span></div>
+          <h3>CineVault</h3>
+          <p class="project-lede">A complete movie discovery and review platform with authentication, ratings, favorites, comments, and live TMDb data.</p>
+          <div class="stack-list" aria-label="CineVault technology stack"><span>PHP</span><span>MySQL</span><span>JavaScript</span><span>TMDb API</span></div>
+          <a class="project-link" href="https://github.com/AhmadHakim119/CineVault" target="_blank" rel="noreferrer">View repository <span aria-hidden="true">↗</span></a>
+        </div>
+        <a class="cine-visual" href="https://github.com/AhmadHakim119/CineVault" target="_blank" rel="noreferrer" aria-label="Open CineVault repository">
+          <img src="./images/cinevault.png" alt="CineVault movie browsing interface" loading="lazy">
+        </a>
+      </article>
+    </section>
+
+    <section class="profile-section" id="profile" aria-labelledby="profile-title">
+      <div class="profile-photo reveal">
+        <img src="./images/me.png" alt="Portrait of Ahmad Hakim" loading="lazy">
+        <span aria-hidden="true">AH</span>
+      </div>
+      <div class="profile-copy reveal">
+        <p class="section-label">Profile</p>
+        <h2 id="profile-title">Curiosity, translated into working systems.</h2>
+        <p>I work across the stack, from research notebooks and model evaluation to APIs, databases, and the interfaces people actually use.</p>
+        <p>My academic work includes adversarial machine learning and research assistance on Physics-Informed Neural Networks for LED lifetime prediction. I also tutor Discrete Math, Calculus, Linear Algebra, and Statistics.</p>
+        <div class="capabilities" aria-label="Core capabilities">
+          <div><span>01</span><strong>Applied AI</strong><p>LLMs, RAG, OCR, evaluation, and adversarial robustness.</p></div>
+          <div><span>02</span><strong>Product engineering</strong><p>Python, FastAPI, PHP, JavaScript, SQL, and C++.</p></div>
+          <div><span>03</span><strong>Technical research</strong><p>Experiments designed to reveal failure modes, not hide them.</p></div>
+        </div>
+        <a class="button button-secondary" href="./images/Ahmad_Hakim_Resume%20(1).pdf" download>Download résumé</a>
+      </div>
+    </section>
+
+    <section class="more-section" aria-labelledby="more-title">
+      <div class="more-heading reveal">
+        <p class="section-label">More on GitHub</p>
+        <h2 id="more-title">Learning in public.</h2>
+      </div>
+      <div class="repo-list reveal">
+        <a href="https://github.com/AhmadHakim119/Networking" target="_blank" rel="noreferrer"><span>Networking</span><small>Cisco, VLANs, routing, and CCNA labs</small><b aria-hidden="true">↗</b></a>
+        <a href="https://github.com/AhmadHakim119/Machine_learning" target="_blank" rel="noreferrer"><span>Machine Learning</span><small>Coursework, labs, and experiments</small><b aria-hidden="true">↗</b></a>
+        <a href="https://github.com/AhmadHakim119/portfolio" target="_blank" rel="noreferrer"><span>This portfolio</span><small>Design and frontend development</small><b aria-hidden="true">↗</b></a>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact" aria-labelledby="contact-title">
+      <p class="section-label reveal">Start a conversation</p>
+      <h2 id="contact-title" class="reveal">Have an ambitious problem?</h2>
+      <a class="contact-email reveal" href="mailto:ahmadramihakim1122@gmail.com">ahmadramihakim1122@gmail.com <span aria-hidden="true">↗</span></a>
+      <div class="contact-footer">
+        <p>Based in Jeddah. Open to internships, research, and meaningful collaborations.</p>
+        <div>
+          <a href="https://github.com/AhmadHakim119" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/ahmad-hakim-139563357" target="_blank" rel="noreferrer">LinkedIn</a>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- ***** Contact ***** -->
-
-  <section class="contact" id="contact">
-    <div class="row">
-      <h2>Get in Touch</h2>
-      <div class="contact__info">
-        <p>
-          Whether you’re interested in AI, full-stack development, academic collaboration, or want to discuss a project — feel free to reach out. I respond quickly. 📩
-        </p>
-
-        <a href="mailto:ahmadramihakim1122@gmail.com" class="btn">ahmadramihakim1122@gmail.com</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ***** Footer ***** -->
-
-  <footer role="contentinfo" class="footer">
-    <div class="row">
-      <ul class="footer__social-links">
-
-        <li class="footer__social-link-item">
-          <a href="https://github.com/AhmadHakim119" title="GitHub">
-            <img src="./images/github.svg" class="footer__social-image" alt="Github">
-          </a>
-        </li>
-
-        <li class="footer__social-link-item">
-          <a href="https://www.linkedin.com/in/ahmad-hakim-139563357" title="LinkedIn">
-            <img src="./images/linkedin.svg" class="footer__social-image" alt="LinkedIn">
-          </a>
-        </li>
-
-      </ul>
-
-      <p>&copy; 2025 - Designed with ❤️</p>
-    </div>
+  <footer class="site-footer">
+    <span>© <span id="year">2026</span> Ahmad Hakim</span>
+    <a href="#top">Back to top ↑</a>
   </footer>
-
-  <a href="#top" class="back-to-top" title="Back to Top">
-    <img src="./images/arrow-up.svg" alt="Back to Top" class="back-to-top__image"/>
-  </a>
-
-  <script src="./index.js"></script>
+  <script type="module" src="./index.js?v=20260823g"></script>
 </body>
-
 </html>
