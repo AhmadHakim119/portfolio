@@ -498,7 +498,7 @@ summary:focus-visible {
 
 .publication-media img {
   width: 100%;
-  aspect-ratio: 1.72;
+  height: auto;
   object-fit: cover;
   object-position: left top;
   transition: transform 700ms var(--ease), filter 320ms ease;
@@ -1053,17 +1053,27 @@ summary:focus-visible {
 }
 
 @media (max-width: 760px) {
+  body {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  section[id] {
+    scroll-margin-top: 74px;
+  }
+
   .section-shell {
-    width: calc(100% - 32px);
+    width: calc(100% - 40px);
   }
 
   .site-header {
-    top: 10px;
-    right: 10px;
-    left: 10px;
+    top: 8px;
+    right: 12px;
+    left: 12px;
     grid-template-columns: auto 1fr;
-    min-height: 54px;
-    padding-left: 14px;
+    min-height: 50px;
+    padding: 4px 7px 4px 14px;
+    border-radius: 14px;
   }
 
   .site-header nav {
@@ -1075,18 +1085,24 @@ summary:focus-visible {
   }
 
   .hero {
-    min-height: 100dvh;
+    min-height: 100svh;
     align-items: center;
-    padding: 96px 18px 34px;
+    padding: 96px 20px 38px;
+    background: radial-gradient(circle at 84% 24%, color-mix(in srgb, var(--accent) 13%, transparent), transparent 38%);
   }
 
   #hero-canvas {
-    opacity: 0.58;
+    display: none;
+  }
+
+  .hero-copy {
+    width: 100%;
   }
 
   .hero h1 {
-    font-size: clamp(70px, 24vw, 112px);
-    line-height: 0.78;
+    max-width: 100%;
+    font-size: clamp(64px, 22vw, 92px);
+    line-height: 0.8;
   }
 
   .hero h1 span:last-child {
@@ -1095,23 +1111,48 @@ summary:focus-visible {
 
   .hero-kicker {
     max-width: 260px;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
+    font-size: 10px;
   }
 
   .hero-intro {
     max-width: 380px;
-    margin-top: 34px;
-    font-size: 18px;
+    margin-top: 30px;
+    font-size: 17px;
+    line-height: 1.45;
+  }
+
+  .hero-actions {
+    margin-top: 24px;
+  }
+
+  .button {
+    min-height: 46px;
+    padding-inline: 18px;
   }
 
   .about-section {
     grid-template-columns: 1fr;
-    gap: 78px;
-    padding-block: 100px;
+    gap: 50px;
+    padding-block: 76px;
   }
 
   .portrait-wrap {
-    width: min(86%, 440px);
+    width: min(82%, 320px);
+  }
+
+  .portrait-wrap::before {
+    inset: 12px -6px -6px 12px;
+  }
+
+  .portrait-wrap img {
+    width: 100%;
+    height: auto;
+    max-height: none;
+  }
+
+  .portrait-wrap > p {
+    margin-top: 16px;
   }
 
   .about-copy h2,
@@ -1119,7 +1160,8 @@ summary:focus-visible {
   .work-heading h2,
   .education-heading h2,
   .skills-heading h2 {
-    font-size: clamp(44px, 14vw, 64px);
+    font-size: clamp(38px, 11vw, 50px);
+    line-height: 1.02;
   }
 
   .about-body,
@@ -1130,99 +1172,252 @@ summary:focus-visible {
   }
 
   .about-body {
-    gap: 24px;
-    margin-top: 42px;
+    gap: 18px;
+    margin-top: 32px;
+  }
+
+  .about-body p {
+    font-size: 16px;
+  }
+
+  .about-facts {
+    margin-top: 38px;
   }
 
   .about-facts div {
-    padding: 18px 0;
+    padding: 15px 0;
+  }
+
+  .about-facts dt {
+    margin-bottom: 5px;
+  }
+
+  .publication-section {
+    padding-block: 76px;
   }
 
   .publication-shell {
-    gap: 42px;
+    gap: 30px;
+  }
+
+  .publication-heading {
+    margin-bottom: 8px;
+  }
+
+  .section-label {
+    margin-bottom: 18px;
   }
 
   .publication-media img {
-    aspect-ratio: 1.35;
+    height: auto;
+  }
+
+  .publication-media span {
+    min-height: 52px;
+    padding-inline: 16px;
   }
 
   .publication-copy h3 {
-    font-size: 30px;
+    margin: 24px 0 20px;
+    font-size: 26px;
+    line-height: 1.16;
+  }
+
+  .publication-copy > p {
+    margin-block: 14px;
+  }
+
+  .publication-copy .authors {
+    margin-top: 24px;
+  }
+
+  .work-section {
+    padding-block: 80px;
   }
 
   .work-heading {
-    margin-bottom: 56px;
+    margin-bottom: 42px;
+  }
+
+  .work-heading > p,
+  .skills-heading > p {
+    margin-top: 18px;
+    font-size: 16px;
   }
 
   .project,
   .project-ml {
     grid-template-columns: 1fr;
     min-height: 0;
+    margin-bottom: 16px;
+    border-radius: 16px;
   }
 
   .project-copy {
-    min-height: 460px;
-    padding: 38px 24px;
+    order: 2;
+    min-height: 0;
+    padding: 28px 22px 30px;
   }
 
+  .project .project-copy,
   .project-ml .project-copy {
     order: 1;
   }
 
-  .project-ml .project-visual {
-    order: 2;
+  .project-type {
+    margin-bottom: 14px;
+    font-size: 10px;
+  }
+
+  .project h3 {
+    font-size: clamp(32px, 9vw, 40px);
+    line-height: 1.02;
+  }
+
+  .project-copy > p:not(.project-type) {
+    margin-top: 18px;
+    font-size: 16px;
+  }
+
+  .project ul {
+    gap: 6px 14px;
+    margin-top: 20px;
+  }
+
+  .text-link {
+    margin-top: 22px;
   }
 
   .project-visual {
+    order: 0;
     min-height: 0;
-    margin: 0 18px 18px;
+    margin: 12px 12px 0;
+    border-radius: 10px;
+  }
+
+  .misra-visual {
+    aspect-ratio: 16 / 10;
+    padding: 9%;
+  }
+
+  .ml-visual {
+    aspect-ratio: 16 / 9;
+    padding: 14px;
   }
 
   .cine-visual {
     height: auto;
     min-height: 0;
-    padding: 20px;
+    padding: 14px;
+  }
+
+  .education-section {
+    padding-block: 80px;
+  }
+
+  .education-heading {
+    margin-bottom: 42px;
   }
 
   .degree-card {
-    min-height: 520px;
-    padding: 34px 24px;
+    min-height: 0;
+    padding: 28px 22px;
+    border-radius: 16px;
   }
 
   .degree-card h3 {
-    margin: 70px 0;
-    font-size: 44px;
+    margin: 38px 0 42px;
+    font-size: clamp(34px, 9vw, 42px);
+    line-height: 1.06;
   }
 
   .degree-card dl {
     grid-template-columns: 1fr;
+    gap: 0;
+    padding-top: 0;
+  }
+
+  .degree-card dl div {
+    padding-block: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .degree-card dl div:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .experience-list {
+    margin-top: 48px;
   }
 
   .experience-list article {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 8px;
+    padding-block: 24px;
+  }
+
+  .experience-list h3 {
+    font-size: 21px;
+  }
+
+  .credentials {
+    margin-top: 40px;
+    border-radius: 16px;
+  }
+
+  .credentials summary {
+    min-height: 64px;
+    padding-inline: 18px;
   }
 
   .credential-grid p {
-    padding: 24px 20px;
+    padding: 20px 18px;
+  }
+
+  .skills-section {
+    padding-block: 80px;
+  }
+
+  .skills-heading {
+    margin-bottom: 40px;
   }
 
   .skills-grid article {
-    min-height: 230px;
-    padding: 34px 24px;
+    min-height: 0;
+    padding: 26px 22px;
+  }
+
+  .skills-grid h3 {
+    font-size: 24px;
   }
 
   .skills-grid p {
-    margin-top: 38px;
+    margin-top: 16px;
+  }
+
+  .contact-section {
+    padding-block: 82px;
   }
 
   .contact-shell h2 {
-    font-size: clamp(54px, 16vw, 78px);
+    font-size: clamp(42px, 12vw, 56px);
+    line-height: 1.02;
+  }
+
+  .contact-email {
+    margin-top: 32px;
+    font-size: clamp(17px, 4.7vw, 22px);
   }
 
   .contact-links {
     flex-wrap: wrap;
-    margin-top: 64px;
+    gap: 22px;
+    margin-top: 44px;
+  }
+
+  .site-footer {
+    min-height: 84px;
   }
 }
 
@@ -1232,7 +1427,7 @@ summary:focus-visible {
   }
 
   .hero h1 {
-    font-size: 21.5vw;
+    font-size: clamp(64px, 21.5vw, 88px);
   }
 
   .hero-actions {
@@ -1245,6 +1440,20 @@ summary:focus-visible {
 
   .publication-media span {
     min-height: 52px;
+  }
+}
+
+@media (max-width: 350px) {
+  .section-shell {
+    width: calc(100% - 28px);
+  }
+
+  .hero {
+    padding-inline: 14px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
   }
 }
 
