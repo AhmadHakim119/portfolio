@@ -116,7 +116,10 @@ const loadThree = () => {
       resize();
 
       let frame = 0;
-      const render = () => {
+      let animationFrame = null;
+      let heroVisible = hero.getBoundingClientRect().bottom > 0;
+
+      const draw = () => {
         pointer.x += (target.x - pointer.x) * 0.045;
         pointer.y += (target.y - pointer.y) * 0.045;
         group.rotation.y = pointer.x + frame * 0.0012;
@@ -124,14 +127,49 @@ const loadThree = () => {
         ring.rotation.z = frame * 0.00055;
         dust.rotation.y = frame * -0.00008;
         renderer.render(scene, camera);
+      };
 
-        if (!reduceMotion) {
+      const render = () => {
+        animationFrame = null;
+        draw();
+
+        if (!reduceMotion && heroVisible && !document.hidden) {
           frame += 1;
-          requestAnimationFrame(render);
+          animationFrame = requestAnimationFrame(render);
         }
       };
 
-      render();
+      const startRendering = () => {
+        if (reduceMotion) {
+          draw();
+          return;
+        }
+
+        if (heroVisible && !document.hidden && animationFrame === null) {
+          animationFrame = requestAnimationFrame(render);
+        }
+      };
+
+      const stopRendering = () => {
+        if (animationFrame === null) return;
+        cancelAnimationFrame(animationFrame);
+        animationFrame = null;
+      };
+
+      const heroObserver = new IntersectionObserver(([entry]) => {
+        heroVisible = entry.isIntersecting;
+        if (heroVisible) startRendering();
+        else stopRendering();
+      });
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) stopRendering();
+        else startRendering();
+      });
+
+      heroObserver.observe(hero);
+      draw();
+      startRendering();
     })
     .catch(() => {
       canvas.hidden = true;
