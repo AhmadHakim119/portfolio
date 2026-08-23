@@ -1,4 +1,48 @@
+const root = document.documentElement;
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const themeToggle = document.querySelector("[data-theme-toggle]");
+const themeLabel = document.querySelector("[data-theme-label]");
+const themeIcon = document.querySelector("[data-theme-icon]");
+const themeMeta = document.querySelector('meta[name="theme-color"]');
+const systemTheme = window.matchMedia("(prefers-color-scheme: light)");
+
+const updateThemeControls = () => {
+  const theme = root.dataset.theme === "light" ? "light" : "dark";
+  themeLabel.textContent = theme === "light" ? "Light" : "Dark";
+  themeIcon.textContent = theme === "light" ? "☀︎" : "☾";
+  themeToggle.setAttribute("aria-pressed", String(theme === "light"));
+  themeToggle.setAttribute("aria-label", `${theme === "light" ? "Light" : "Dark"} theme. Switch to ${theme === "light" ? "dark" : "light"} theme`);
+  themeMeta.setAttribute("content", theme === "light" ? "#eff0f3" : "#101216");
+};
+
+const applyTheme = (theme, persist = true) => {
+  root.dataset.theme = theme;
+  if (persist) {
+    try {
+      localStorage.setItem("ah-theme", theme);
+    } catch {
+      // Theme still applies when storage is unavailable.
+    }
+  }
+
+  updateThemeControls();
+  window.dispatchEvent(new CustomEvent("themechange", { detail: { theme } }));
+};
+
+updateThemeControls();
+
+themeToggle.addEventListener("click", () => {
+  applyTheme(root.dataset.theme === "light" ? "dark" : "light");
+});
+
+systemTheme.addEventListener("change", (event) => {
+  try {
+    if (localStorage.getItem("ah-theme")) return;
+  } catch {
+    // Follow the operating-system theme when storage is unavailable.
+  }
+  applyTheme(event.matches ? "light" : "dark", false);
+});
 
 document.querySelector("#year").textContent = new Date().getFullYear();
 
@@ -7,18 +51,18 @@ const revealElements = document.querySelectorAll(".reveal");
 if (reduceMotion || !("IntersectionObserver" in window)) {
   revealElements.forEach((element) => element.classList.add("is-visible"));
 } else {
-  const observer = new IntersectionObserver(
+  const revealObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
+        revealObserver.unobserve(entry.target);
       });
     },
-    { rootMargin: "0px 0px -12%", threshold: 0.12 },
+    { rootMargin: "0px 0px -8%", threshold: 0.08 },
   );
 
-  revealElements.forEach((element) => observer.observe(element));
+  revealElements.forEach((element) => revealObserver.observe(element));
 }
 
 const canvas = document.querySelector("#hero-canvas");
@@ -28,72 +72,118 @@ const loadThree = () => {
     .then((THREE) => {
       const hero = canvas.closest(".hero");
       const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-      const group = new THREE.Group();
+      const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
+      const renderer = new THREE.WebGLRenderer({
+        canvas,
+        alpha: true,
+        antialias: window.devicePixelRatio < 2,
+        powerPreference: "high-performance",
+      });
+      const system = new THREE.Group();
+      const orbitGroup = new THREE.Group();
 
-      camera.position.set(0, 0, 6.2);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.7));
+      camera.position.set(0, 0, 7);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
       renderer.setClearColor(0x000000, 0);
-      scene.add(group);
+      scene.add(system);
+      system.add(orbitGroup);
 
-      const coreGeometry = new THREE.IcosahedronGeometry(1.64, 3);
+      const coreGeometry = new THREE.IcosahedronGeometry(1.58, 2);
       const coreMaterial = new THREE.MeshBasicMaterial({
-        color: 0xc7ff55,
         wireframe: true,
         transparent: true,
-        opacity: 0.2,
+        opacity: 0.3,
       });
       const core = new THREE.Mesh(coreGeometry, coreMaterial);
-      group.add(core);
+      system.add(core);
 
-      const pointsMaterial = new THREE.PointsMaterial({
-        color: 0xecece6,
-        size: 0.025,
+      const pointMaterial = new THREE.PointsMaterial({
+        size: 0.032,
         transparent: true,
-        opacity: 0.66,
+        opacity: 0.82,
       });
-      const points = new THREE.Points(coreGeometry, pointsMaterial);
-      points.scale.setScalar(1.018);
-      group.add(points);
+      const points = new THREE.Points(coreGeometry, pointMaterial);
+      points.scale.setScalar(1.025);
+      system.add(points);
 
       const ringMaterial = new THREE.MeshBasicMaterial({
-        color: 0x8580bc,
         transparent: true,
-        opacity: 0.32,
+        opacity: 0.34,
         side: THREE.DoubleSide,
       });
-      const ring = new THREE.Mesh(new THREE.TorusGeometry(2.12, 0.012, 8, 180), ringMaterial);
-      ring.rotation.x = 1.12;
-      ring.rotation.y = 0.35;
-      group.add(ring);
+
+      [
+        [2.05, 1.1, 0.2],
+        [2.32, 0.48, 1.35],
+        [2.58, 1.55, -0.55],
+      ].forEach(([radius, rotationX, rotationY]) => {
+        const ring = new THREE.Mesh(
+          new THREE.TorusGeometry(radius, 0.012, 6, 150),
+          ringMaterial,
+        );
+        ring.rotation.x = rotationX;
+        ring.rotation.y = rotationY;
+        orbitGroup.add(ring);
+      });
+
+      const satelliteMaterial = new THREE.MeshBasicMaterial();
+      const satelliteGeometry = new THREE.SphereGeometry(0.055, 10, 10);
+
+      [
+        [2.05, 0, 0],
+        [-1.45, 1.58, 0.25],
+        [0.5, -2.18, -0.25],
+      ].forEach((position) => {
+        const satellite = new THREE.Mesh(satelliteGeometry, satelliteMaterial);
+        satellite.position.set(...position);
+        orbitGroup.add(satellite);
+      });
 
       const dustGeometry = new THREE.BufferGeometry();
-      const dustCount = window.innerWidth < 720 ? 260 : 620;
+      const dustCount = window.innerWidth < 760 ? 180 : 420;
       const positions = new Float32Array(dustCount * 3);
 
       for (let index = 0; index < dustCount; index += 1) {
-        const distance = 2.7 + Math.random() * 3.8;
+        const distance = 2.8 + Math.random() * 4.8;
         const angle = Math.random() * Math.PI * 2;
         positions[index * 3] = Math.cos(angle) * distance;
-        positions[index * 3 + 1] = (Math.random() - 0.5) * 5.4;
-        positions[index * 3 + 2] = Math.sin(angle) * distance - 1.8;
+        positions[index * 3 + 1] = (Math.random() - 0.5) * 6;
+        positions[index * 3 + 2] = Math.sin(angle) * distance - 2;
       }
 
       dustGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-      const dust = new THREE.Points(
-        dustGeometry,
-        new THREE.PointsMaterial({ color: 0xc7ff55, size: 0.014, transparent: true, opacity: 0.28 }),
-      );
+      const dustMaterial = new THREE.PointsMaterial({
+        size: 0.014,
+        transparent: true,
+        opacity: 0.28,
+      });
+      const dust = new THREE.Points(dustGeometry, dustMaterial);
       scene.add(dust);
+
+      const syncColors = () => {
+        const styles = getComputedStyle(root);
+        const accent = new THREE.Color(styles.getPropertyValue("--accent").trim());
+        const text = new THREE.Color(styles.getPropertyValue("--text").trim());
+        const faint = new THREE.Color(styles.getPropertyValue("--text-faint").trim());
+
+        coreMaterial.color.copy(accent);
+        pointMaterial.color.copy(text);
+        ringMaterial.color.copy(accent);
+        satelliteMaterial.color.copy(text);
+        dustMaterial.color.copy(faint);
+      };
 
       const pointer = { x: 0, y: 0 };
       const target = { x: 0, y: 0 };
 
-      const positionObject = () => {
-        group.position.x = window.innerWidth < 720 ? 1.55 : 2.7;
-        group.position.y = window.innerWidth < 720 ? 1.15 : 0.15;
-        group.scale.setScalar(window.innerWidth < 720 ? 0.66 : 1);
+      const positionSystem = () => {
+        if (window.innerWidth < 760) {
+          system.position.set(1.55, 1.55, -0.4);
+          system.scale.setScalar(0.72);
+        } else {
+          system.position.set(2.65, 0.25, -0.2);
+          system.scale.setScalar(1);
+        }
       };
 
       const resize = () => {
@@ -102,17 +192,20 @@ const loadThree = () => {
         renderer.setSize(width, height, false);
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
-        positionObject();
+        positionSystem();
       };
 
       const onPointerMove = (event) => {
         if (reduceMotion) return;
-        target.x = (event.clientX / window.innerWidth - 0.5) * 0.55;
-        target.y = (event.clientY / window.innerHeight - 0.5) * 0.4;
+        target.x = (event.clientX / window.innerWidth - 0.5) * 0.48;
+        target.y = (event.clientY / window.innerHeight - 0.5) * 0.34;
       };
 
       window.addEventListener("resize", resize, { passive: true });
       window.addEventListener("pointermove", onPointerMove, { passive: true });
+      window.addEventListener("themechange", syncColors);
+
+      syncColors();
       resize();
 
       let frame = 0;
@@ -120,12 +213,14 @@ const loadThree = () => {
       let heroVisible = hero.getBoundingClientRect().bottom > 0;
 
       const draw = () => {
-        pointer.x += (target.x - pointer.x) * 0.045;
-        pointer.y += (target.y - pointer.y) * 0.045;
-        group.rotation.y = pointer.x + frame * 0.0012;
-        group.rotation.x = -pointer.y + 0.18;
-        ring.rotation.z = frame * 0.00055;
-        dust.rotation.y = frame * -0.00008;
+        pointer.x += (target.x - pointer.x) * 0.04;
+        pointer.y += (target.y - pointer.y) * 0.04;
+        system.rotation.y = pointer.x + frame * 0.001;
+        system.rotation.x = -pointer.y + 0.12;
+        core.rotation.z = frame * -0.00045;
+        orbitGroup.rotation.z = frame * 0.00042;
+        orbitGroup.rotation.y = frame * -0.00016;
+        dust.rotation.y = frame * -0.00006;
         renderer.render(scene, camera);
       };
 
@@ -178,7 +273,12 @@ const loadThree = () => {
 
 if (canvas) {
   const begin = () => {
-    window.setTimeout(loadThree, 1200);
+    if (window.innerWidth < 760 || reduceMotion) {
+      canvas.hidden = true;
+      return;
+    }
+
+    window.setTimeout(loadThree, 1100);
   };
 
   if (document.readyState === "complete") begin();
