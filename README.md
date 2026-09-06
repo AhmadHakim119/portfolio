@@ -27,7 +27,7 @@ Key capabilities:
 
 [View MISRA-EDU](https://github.com/AhmadHakim119/misra_edu)
 
-### Medical Diagnosis Under Attack
+### PoisonedDX
 
 A machine-learning study examining how eight classifiers respond to label-flipping data-poisoning attacks using 1.3 million synthetic patient records.
 
@@ -40,6 +40,10 @@ Key findings:
 - Compared Logistic Regression, XGBoost, Random Forest, SVM, KNN, SGD, Naive Bayes, and Decision Trees
 
 [View the DDXPlus Study](https://github.com/AhmadHakim119/ML_Project_DDXPLUS)
+
+[Explore PoisonedDX](https://poisoneddx.lovable.app/) · [Interactive demo](https://poisoneddx.lovable.app/demo)
+
+The live showcase includes the diagnosis pipeline, data-poisoning experiments, and Cleanlab-based label correction.
 
 ### CineVault
 
@@ -69,6 +73,13 @@ Built with PHP, MySQL, JavaScript, Bootstrap, and the TMDb API.
 
 - Responsive editorial layout
 - Interactive Three.js hero
+- Sphere pause/resume, particle view, and rotation speed controls
+- Filterable project cards with expandable technical explanations
+- Searchable toolkit with AI, software, web, and DevOps categories
+- IBM DevOps certification in the credentials section
+- Quick navigation with Ctrl/Cmd+K and a mobile menu
+- Light/dark themes and copy-email feedback
+- Tabler icons retrieved from the Iconify API and served locally
 - Locally vendored Three.js modules
 - Scroll-triggered content reveals
 - Reduced-motion support
@@ -78,6 +89,19 @@ Built with PHP, MySQL, JavaScript, Bootstrap, and the TMDb API.
 - Open Graph and SEO metadata
 - Progressive enhancement for direct-file viewing
 - No frontend framework or build process required
+
+## Maintaining the Interface
+
+- `index.html`: content, project details, toolkit entries, and accessibility labels
+- `index.css`: base styles and theme tokens
+- `enhancements.css`: interactive layouts, icon masks, and responsive refinements
+- `index.js`: theme controls and the Three.js scene
+- `interactions.js`: project/toolkit filters, navigation, and email copying
+- `images/icons/`: locally cached Tabler SVGs with their MIT license
+
+Refresh the icon assets with `pwsh -File scripts/fetch-icons.ps1`. Icons use the [Iconify SVG API](https://iconify.design/docs/api/svg.html); serving the downloaded copies avoids runtime API dependencies. New icons must also have a matching mask rule in `enhancements.css`.
+
+The layout and interaction improvements were inspired by [Ahmad Balubaid's portfolio](https://ahmadbalu.github.io/Ahmad_Balubaid/), adapted to this portfolio's own projects and identity.
 
 ## Technology
 

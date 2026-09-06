@@ -9,7 +9,7 @@ const systemTheme = window.matchMedia("(prefers-color-scheme: light)");
 const updateThemeControls = () => {
   const theme = root.dataset.theme === "light" ? "light" : "dark";
   themeLabel.textContent = theme === "light" ? "Light" : "Dark";
-  themeIcon.textContent = theme === "light" ? "☀︎" : "☾";
+  themeIcon.dataset.icon = theme === "light" ? "sun" : "moon";
   themeToggle.setAttribute("aria-pressed", String(theme === "light"));
   themeToggle.setAttribute("aria-label", `${theme === "light" ? "Light" : "Dark"} theme. Switch to ${theme === "light" ? "dark" : "light"} theme`);
   themeMeta.setAttribute("content", theme === "light" ? "#eff0f3" : "#101216");
@@ -71,6 +71,14 @@ const loadThree = () => {
   import("./vendor/three.module.min.js?v=0.180.0")
     .then((THREE) => {
       const hero = canvas.closest(".hero");
+      const controls = document.querySelector(".sphere-controls");
+      const pauseButton = document.querySelector("[data-sphere-pause]");
+      const modeButton = document.querySelector("[data-sphere-mode]");
+      const speedInput = document.querySelector("[data-sphere-speed]");
+      const desktop = window.matchMedia("(min-width: 761px)");
+      const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+      let paused = false;
+      let speed = 1;
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
       const renderer = new THREE.WebGLRenderer({
@@ -193,6 +201,7 @@ const loadThree = () => {
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
         positionSystem();
+        draw();
       };
 
       const onPointerMove = (event) => {
@@ -205,10 +214,8 @@ const loadThree = () => {
       window.addEventListener("pointermove", onPointerMove, { passive: true });
       window.addEventListener("themechange", syncColors);
 
-      syncColors();
-      resize();
-
       let frame = 0;
+      let lastTime = null;
       let animationFrame = null;
       let heroVisible = hero.getBoundingClientRect().bottom > 0;
 
@@ -224,23 +231,28 @@ const loadThree = () => {
         renderer.render(scene, camera);
       };
 
-      const render = () => {
+      const canAnimate = () => !paused && !motionPreference.matches && desktop.matches && heroVisible && !document.hidden;
+
+      const render = (now) => {
         animationFrame = null;
+        const delta = lastTime === null ? 0 : Math.min(now - lastTime, 50);
+        lastTime = now;
+        frame += delta / (1000 / 60) * speed;
         draw();
 
-        if (!reduceMotion && heroVisible && !document.hidden) {
-          frame += 1;
+        if (canAnimate()) {
           animationFrame = requestAnimationFrame(render);
         }
       };
 
       const startRendering = () => {
-        if (reduceMotion) {
+        if (!canAnimate()) {
           draw();
           return;
         }
 
-        if (heroVisible && !document.hidden && animationFrame === null) {
+        if (animationFrame === null) {
+          lastTime = null;
           animationFrame = requestAnimationFrame(render);
         }
       };
@@ -249,6 +261,7 @@ const loadThree = () => {
         if (animationFrame === null) return;
         cancelAnimationFrame(animationFrame);
         animationFrame = null;
+        lastTime = null;
       };
 
       const heroObserver = new IntersectionObserver(([entry]) => {
@@ -262,6 +275,35 @@ const loadThree = () => {
         else startRendering();
       });
 
+      pauseButton.addEventListener("click", () => {
+        paused = !paused;
+        pauseButton.setAttribute("aria-pressed", String(paused));
+        pauseButton.setAttribute("aria-label", paused ? "Resume sphere rotation" : "Pause sphere rotation");
+        pauseButton.querySelector(".icon").dataset.icon = paused ? "player-play" : "player-pause";
+        if (paused) stopRendering();
+        else startRendering();
+      });
+      modeButton.addEventListener("click", () => {
+        const nodesOnly = modeButton.getAttribute("aria-pressed") !== "true";
+        modeButton.setAttribute("aria-pressed", String(nodesOnly));
+        modeButton.textContent = nodesOnly ? "Particles" : "Wireframe";
+        core.visible = !nodesOnly;
+        pointMaterial.size = nodesOnly ? 0.055 : 0.032;
+        draw();
+      });
+      speedInput.addEventListener("input", () => { speed = Number(speedInput.value); });
+      const syncMotion = () => {
+        stopRendering();
+        controls.hidden = !desktop.matches || motionPreference.matches;
+        startRendering();
+      };
+      desktop.addEventListener("change", syncMotion);
+      motionPreference.addEventListener("change", syncMotion);
+      window.addEventListener("themechange", () => draw());
+
+      syncColors();
+      resize();
+      controls.hidden = !desktop.matches || motionPreference.matches;
       heroObserver.observe(hero);
       draw();
       startRendering();
