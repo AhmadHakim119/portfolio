@@ -95,6 +95,7 @@ Built with PHP, MySQL, JavaScript, Bootstrap, and the TMDb API.
 - Filterable project cards with expandable technical explanations
 - Searchable toolkit with AI, software, web, and DevOps categories
 - IBM DevOps certification in the credentials section
+- DeepLearning.AI Neural Networks and Deep Learning certificate (October 1, 2026), with a Coursera verification link
 - Quick navigation with Ctrl/Cmd+K and a mobile menu
 - Light/dark themes and copy-email feedback
 - Tabler icons retrieved from the Iconify API and served locally
