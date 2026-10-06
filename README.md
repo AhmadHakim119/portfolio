@@ -45,6 +45,24 @@ Key findings:
 
 The live showcase includes the diagnosis pipeline, data-poisoning experiments, and Cleanlab-based label correction.
 
+### KSA Law RAG
+
+**Legal Retrieval-Augmented Generation (RAG) System – KSA Law · December 2025**
+
+A LLaMA-based system in development for analyzing Saudi Arabian law, answering legal questions, and assisting legal research.
+
+- Document ingestion, chunking, embeddings, vector storage, and retrieval
+- Context-aware RAG for lawsuit classification, article lookup, and legal reasoning
+- Python, LangChain, LLaMA, and FAISS/Chroma vector databases
+
+### Centy
+
+An independent web platform for practical guides on AI, technology, gaming, and money, with product recommendations and a daily games arcade.
+
+Built with Next.js, React, TypeScript, and Tailwind CSS. The Centy ecosystem also includes Doc Chat, a product for chatting with PDFs.
+
+[Visit Centy](https://centy.cloud/) · [Read the guides](https://centy.cloud/blog)
+
 ### CineVault
 
 A full-stack movie and television discovery platform powered by the TMDb API.
